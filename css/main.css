@@ -11,6 +11,7 @@ textarea {
 }
 
 body {
+    background-color: #000;
     font-size: 1em;
     line-height: 1.4;
 }
@@ -157,8 +158,34 @@ nav a:hover {
    Author's custom styles
    ========================================================================== */
 
+.main-container {
+    position: relative;
+    margin: 5% auto;
+    padding: 0;
+    width: 300px;
+    height: 300px;
+    background-color: #666;
+}
 
+h1 {
+    display: block;
+    margin: 20px 0;
+    padding: 0;
+    width: 300px;
+    text-align: center;
+}
 
+div {
+    margin: 10px 0;
+    width: 300px;
+    text-align: center;
+    display: block;
+    color: #fff;
+}
+
+#levelDiv {
+    font-size: 50px;
+}
 
 
 

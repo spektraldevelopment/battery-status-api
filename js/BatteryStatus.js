@@ -26,6 +26,14 @@ function BatteryStatus() {
         attachEventListener(battery, "levelchange", callback);
     }
 
+    this.onChargeTimeChange = function(callback) {
+        attachEventListener(battery, "chargingtimechange", callback);
+    }
+
+    this.onDischargeTimeChange = function(callback) {
+        attachEventListener(battery, "dischargingtimechange", callback);
+    }
+
     //////////////////
     ////UTILS
     /////////////////

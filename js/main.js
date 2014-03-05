@@ -3,7 +3,11 @@ var
     batteryLevel = batteryStatus.getBatteryLevel(),
     isCharging = batteryStatus.isCharging(),
     chargingTime = batteryStatus.getChargingTime(),
-    dischargingTime = batteryStatus.getDischargingTime();
+    dischargingTime = batteryStatus.getDischargingTime(),
+    levelDiv = document.getElementById("levelDiv"),
+    chargingDiv = document.getElementById("chargingDiv"),
+    chargingTimeDiv = document.getElementById("chargingTimeDiv"),
+    dischargingTimeDiv = document.getElementById("dischargingTimeDiv");
 
 console.log("batteryLevel: " + batteryLevel);
 console.log("isCharging: " + isCharging);
@@ -20,7 +24,20 @@ function chargingChange(evt) {
 batteryStatus.onLevelChange(batteryLevelChange);
 
 function batteryLevelChange(evt) {
-    console.log("batteryLevelChange: evt: " + evt);
+    batteryLevel = batteryStatus.getBatteryLevel();
+    console.log("batteryLevelChange: " + batteryLevel);
+}
+
+batteryStatus.onChargeTimeChange(chargeTimeChange);
+
+function chargeTimeChange() {
+    chargingTime = batteryStatus.getChargingTime();
+}
+
+batteryStatus.onDischargeTimeChange(dischargeTimeChange);
+
+function dischargeTimeChange() {
+    dischargingTime = batteryStatus.getDischargingTime()
 }
 
 

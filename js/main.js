@@ -14,11 +14,7 @@ chargingDiv.innerHTML = "Charging: " + isCharging;
 levelDiv.innerHTML = batteryLevel;
 
 if (chargingTime === Infinity) {
-    if (isCharging) {
-        chargeTime = "Plugged In";
-    } else {
-        chargeTime = "Unplugged";
-    }
+    chargeTime = "Charged"
 } else {
     chargeTime = formatTime(chargingTime);
 }
@@ -29,45 +25,72 @@ if (dischargingTime === Infinity) {
 } else {
     dischargeTime = formatTime(dischargingTime);
 }
-dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
+//dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
 
-batteryStatus.onChargingChange(chargingChange);
+batteryStatus.onChargingChange(updateStatus);
+batteryStatus.onLevelChange(updateStatus);
+batteryStatus.onChargeTimeChange(updateStatus);
+batteryStatus.onDischargeTimeChange(updateStatus);
 
-function chargingChange(evt) {
-    isCharging = batteryStatus.isCharging();
-    chargingDiv.innerHTML = "Charging: " + isCharging;
-}
-
-batteryStatus.onLevelChange(batteryLevelChange);
-
-function batteryLevelChange(evt) {
+function updateStatus() {
     batteryLevel = batteryStatus.getBatteryLevel();
-    levelDiv.innerHTML = batteryLevel;
-}
-
-batteryStatus.onChargeTimeChange(chargeTimeChange);
-
-function chargeTimeChange() {
+    isCharging = batteryStatus.isCharging();
     chargingTime = batteryStatus.getChargingTime();
-    if (chargingTime === Infinity) {
-        chargeTime = "Unplugged";
-    } else {
+    dischargeTime = batteryStatus.getDischargingTime();
+
+    levelDiv.innerHTML = batteryLevel;
+    chargingDiv.innerHTML = "Charging: " + isCharging;
+
+    if (chargingTime !== Infinity) {
         chargeTime = formatTime(chargingTime);
     }
     chargingTimeDiv.innerHTML = "Charge Time: " + chargeTime;
-}
 
-batteryStatus.onDischargeTimeChange(dischargeTimeChange);
-
-function dischargeTimeChange() {
-    dischargingTime = batteryStatus.getDischargingTime();
-    if (dischargingTime === Infinity) {
-        dischargeTime = "Plugged In"
-    } else {
+    if (dischargingTime !== Infinity) {
         dischargeTime = formatTime(dischargingTime);
     }
     dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
 }
+
+//batteryStatus.onChargingChange(chargingChange);
+//
+//function chargingChange(evt) {
+//    isCharging = batteryStatus.isCharging();
+//    chargingDiv.innerHTML = "Charging: " + isCharging;
+//}
+//
+//batteryStatus.onLevelChange(batteryLevelChange);
+//
+//function batteryLevelChange(evt) {
+//    batteryLevel = batteryStatus.getBatteryLevel();
+//    levelDiv.innerHTML = batteryLevel;
+//}
+//
+//batteryStatus.onChargeTimeChange(chargeTimeChange);
+//
+//function chargeTimeChange() {
+//    chargingDiv.innerHTML = "Charging: " + isCharging;
+//
+//    chargingTime = batteryStatus.getChargingTime();
+//    if (chargingTime === Infinity) {
+//        chargeTime = "Charged";
+//    } else {
+//        chargeTime = formatTime(chargingTime);
+//    }
+//    chargingTimeDiv.innerHTML = "Charge Time: " + chargeTime;
+//}
+
+//batteryStatus.onDischargeTimeChange(dischargeTimeChange);
+//
+//function dischargeTimeChange() {
+//    dischargingTime = batteryStatus.getDischargingTime();
+//    if (dischargingTime === Infinity) {
+//        dischargeTime = "Plugged In"
+//    } else {
+//        dischargeTime = formatTime(dischargingTime);
+//    }
+//    dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
+//}
 
 function formatTime(time) {
     var

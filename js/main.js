@@ -7,12 +7,29 @@ var
     levelDiv = document.getElementById("levelDiv"),
     chargingDiv = document.getElementById("chargingDiv"),
     chargingTimeDiv = document.getElementById("chargingTimeDiv"),
-    dischargingTimeDiv = document.getElementById("dischargingTimeDiv");
+    dischargingTimeDiv = document.getElementById("dischargingTimeDiv"),
+    chargeTime, dischargeTime;
 
 chargingDiv.innerHTML = "Charging: " + isCharging;
 levelDiv.innerHTML = batteryLevel;
-chargingTimeDiv.innerHTML = "Charge Time: " + formatTime(chargingTime);
-dischargingTimeDiv.innerHTML = "Discharge Time: " + formatTime(dischargingTime);
+
+if (chargingTime === Infinity) {
+    if (isCharging) {
+        chargeTime = "Plugged In";
+    } else {
+        chargeTime = "Unplugged";
+    }
+} else {
+    chargeTime = formatTime(chargingTime);
+}
+chargingTimeDiv.innerHTML = "Charge Time: " + chargeTime;
+
+if (dischargingTime === Infinity) {
+    dischargeTime = "Plugged In"
+} else {
+    dischargeTime = formatTime(dischargingTime);
+}
+dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
 
 batteryStatus.onChargingChange(chargingChange);
 
@@ -31,17 +48,12 @@ function batteryLevelChange(evt) {
 batteryStatus.onChargeTimeChange(chargeTimeChange);
 
 function chargeTimeChange() {
-    var chargeTime;
     chargingTime = batteryStatus.getChargingTime();
-
-    if (chargingTime === "Infinity") {
+    if (chargingTime === Infinity) {
         chargeTime = "Unplugged";
     } else {
         chargeTime = formatTime(chargingTime);
     }
-
-    console.log("chargeTime: " + chargeTime);
-
     chargingTimeDiv.innerHTML = "Charge Time: " + chargeTime;
 }
 
@@ -49,7 +61,12 @@ batteryStatus.onDischargeTimeChange(dischargeTimeChange);
 
 function dischargeTimeChange() {
     dischargingTime = batteryStatus.getDischargingTime();
-    dischargingTimeDiv.innerHTML = "Discharge Time: " + formatTime(dischargingTime);
+    if (dischargingTime === Infinity) {
+        dischargeTime = "Plugged In"
+    } else {
+        dischargeTime = formatTime(dischargingTime);
+    }
+    dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
 }
 
 function formatTime(time) {

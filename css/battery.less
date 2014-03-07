@@ -1,0 +1,60 @@
+.shadow (@hOffset: inset, @vOffset: 0px, @blur: 0px, @spread: 5px, @color: #000) {
+  -moz-box-shadow: @hOffset @vOffset @blur @spread @color;
+  -webkit-box-shadow: @hOffset @vOffset @blur @spread @color;
+  box-shadow: @hOffset @vOffset @blur @spread @color;
+}
+
+.textShadow (@X: 1px, @Y: 1px, @blur: 3px, @color: #888) {
+  text-shadow: @X @Y @blur @color;
+}
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+}
+
+h1 {
+  display: block;
+  margin: 20px 0;
+  padding: 0;
+  width: 300px;
+  text-align: center;
+  font-size: 40px;
+  .textShadow(1px , 1px, 5px, #0A2435);
+}
+
+div {
+  margin: 10px 0;
+  width: 300px;
+  text-align: center;
+  display: block;
+  color: #F9EDC7;
+  .textShadow(1px , 1px, 5px, #0A2435);
+}
+
+.main-container {
+  .rounded-corners();
+  position: relative;
+  margin: 5% auto;
+  padding: 20px;
+  width: 300px;
+  height: 300px;
+  background-color: #307384;
+  .shadow();
+}
+
+#levelDiv {
+  font-size: 120px;
+  font-weight: bold;
+  color: #F26E11;
+  .textShadow(1px , 1px, 5px, #0A2435);
+}

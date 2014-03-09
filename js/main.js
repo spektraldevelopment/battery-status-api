@@ -7,25 +7,25 @@ var
     levelDiv = document.getElementById("levelDiv"),
     chargingDiv = document.getElementById("chargingDiv"),
     chargingTimeDiv = document.getElementById("chargingTimeDiv"),
-    dischargingTimeDiv = document.getElementById("dischargingTimeDiv"),
-    chargeTime, dischargeTime;
+    chargeTime;
 
 chargingDiv.innerHTML = "Charging: " + isCharging;
 levelDiv.innerHTML = batteryLevel;
 
-if (chargingTime === Infinity) {
-    chargeTime = "Charged"
+if (isCharging === false) {
+   //Battery is charged or near 100%
+    if (dischargingTime !== Infinity) {
+        //Battery is discharging
+        chargeTime = "Discharge Time: " + formatTime(dischargingTime);
+    }
 } else {
-    chargeTime = formatTime(chargingTime);
+   //Battery is charging
+    if (chargingTime !== Infinity) {
+        //Battery still needs to be charged
+        chargeTime = "Charge Time: " + formatTime(chargingTime);
+    }
 }
-chargingTimeDiv.innerHTML = "Charge Time: " + chargeTime;
-
-if (dischargingTime === Infinity) {
-    dischargeTime = "Plugged In"
-} else {
-    dischargeTime = formatTime(dischargingTime);
-}
-dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
+chargingTimeDiv.innerHTML = chargeTime;
 
 batteryStatus.onChargingChange(updateStatus);
 batteryStatus.onLevelChange(updateStatus);
@@ -35,21 +35,22 @@ batteryStatus.onDischargeTimeChange(updateStatus);
 function updateStatus() {
     batteryLevel = batteryStatus.getBatteryLevel();
     isCharging = batteryStatus.isCharging();
-    chargingTime = batteryStatus.getChargingTime();
-    dischargeTime = batteryStatus.getDischargingTime();
 
-    levelDiv.innerHTML = batteryLevel;
-    chargingDiv.innerHTML = "Charging: " + isCharging;
-
-    if (chargingTime !== Infinity) {
-        chargeTime = formatTime(chargingTime);
+    if (isCharging === false) {
+        //Battery is charged or near 100%
+        if (dischargingTime !== Infinity) {
+            //Battery is discharging
+            chargeTime = "Discharge Time: " + formatTime(dischargingTime);
+        }
+    } else {
+        //Battery is charging
+        if (chargingTime !== Infinity) {
+            //Battery still needs to be charged
+            chargeTime = "Charge Time: " + formatTime(chargingTime);
+        }
     }
-    chargingTimeDiv.innerHTML = "Charge Time: " + chargeTime;
-
-    if (dischargingTime !== Infinity) {
-        dischargeTime = formatTime(dischargingTime);
-    }
-    dischargingTimeDiv.innerHTML = "Discharge Time: " + dischargeTime;
+    chargingTimeDiv.innerHTML = chargeTime;
+    console.log("A Battery event has occurred!");
 }
 
 function formatTime(time) {
